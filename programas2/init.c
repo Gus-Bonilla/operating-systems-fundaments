@@ -79,7 +79,7 @@ int main()
     		}
 			
 			f_sh=fopen("PIDs_GETTY","w");
-
+			printf("%s", contenido);
 			fprintf(f_sh,"%s", contenido);
 			fclose(f_sh);
 
