@@ -9,8 +9,6 @@
 
 int main()
 {
-  printf("\n\n\nENTRË AL GETTY\n\n\n");
-    //char usuario[TAM];
     char contra[6][16];
     char usuarios[6][16]={};
     char usr[10];
@@ -20,7 +18,7 @@ int main()
     int  flag_usuario=1;
     FILE *pass;
     FILE *f_sh;
-    //int k=0;
+    
     pass=fopen("passwd","r");
     char contenido[TAM_CONT];
     longitud=fread(contenido,1,TAM_CONT,pass);
@@ -31,14 +29,12 @@ int main()
     fprintf(f_sh,"%d",getpid());
     fclose(f_sh);
     
-    printf("contenido:");
+    printf("Bienvenido\n");
     int i=0;
     int k=0;
     
     for(int j=0;j<longitud;j++)
     {  
-        printf("%c",contenido[j]);
-        //usuarios[i][k]=contenido[j];
         if('\n'==contenido[j])
         {
           contra[i][k-1]=0;
@@ -75,20 +71,16 @@ int main()
     scanf("%s",clave);
     int valid_user=0;
     int valid_contra=0;
-    //if(strcmp(usr,"shutdown"))
-          
-      //   break;
-       
     for(int idx=0;idx<6;idx++)
     {
-    printf("%s\n",usuarios[idx]);
+    //printf("%s\n",usuarios[idx]);
 
     if(strcmp(usr,usuarios[idx])==0)
       {
           valid_user=1;
           if(strcmp(clave,contra[idx])==0)
           {
-          printf("si son\n");
+          printf("Acesso correcto\n");
           valid_contra=1;
           break;
           }
@@ -107,26 +99,9 @@ int main()
       execlp("./sh","sh",NULL);
     }
     wait(NULL);
-    /*int reg;
-    int sigseg_t=set;
-    int sig
-    //reg=waitid(P_PID,pid,NULL,WEXITED);
-    
-    sigemptyset(&set);
-    sigaddset(&set, SIGINT);
-    sigprocmask( SIG_BLOCK, &set, NULL );
-    printf("Waiting for a SIGINT signal\n");
-    reg = sigwait(&set,sigptr);
-    printf("SOY REG %d",reg);*/
-    //if(reg!=0)
-    //{
-    //kill(getppid(),9);
-    //}
+    printf("Sesión terminada\n");
     }
-    //printf("holis\n");
-    //printf("%d\n",flag_usuario);
     return 0;
       
-
 }
 

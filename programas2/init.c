@@ -28,7 +28,8 @@ int main()
 	{
 		pid = fork();
 		
-		if(pid == 0){
+		if(pid == 0)
+		{
 			printf("PID del proceso%d,%d\n",i,getpid());
 			execlp("xterm","xterm","-e","./getty",NULL);
 		}
@@ -36,13 +37,13 @@ int main()
 	}
 
 	wait(NULL);
-	/*while(1)
+	while(1)
 	{
 		wait(NULL);
 		pid=fork();
-		//if(pid==0)
-			//execlp("xterm","xterm","-e","./getty",NULL);
-	}*/
+		if(pid==0)
+			execlp("xterm","xterm","-e","./getty",NULL);
+	} //falta eliminar el proceso si se ejecuta "shutdown" cuando se abra una nueva terminal
 	
 	printf("Fin");
 	return 0;	
