@@ -9,6 +9,7 @@
 
 int main()
 {
+  printf("\n\n\nENTRË AL GETTY\n\n\n");
     //char usuario[TAM];
     char contra[6][16];
     char usuarios[6][16]={};
@@ -18,12 +19,17 @@ int main()
     int  longitud;
     int  flag_usuario=1;
     FILE *pass;
+    FILE *f_sh;
     //int k=0;
     pass=fopen("passwd","r");
     char contenido[TAM_CONT];
     longitud=fread(contenido,1,TAM_CONT,pass);
 
     fclose(pass);
+
+    f_sh=fopen("PIDs_GETTY","a");
+    fprintf(f_sh,"%d",getpid());
+    fclose(f_sh);
     
     printf("contenido:");
     int i=0;
