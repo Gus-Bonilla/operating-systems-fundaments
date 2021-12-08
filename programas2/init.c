@@ -4,6 +4,9 @@
 #include <signal.h>
 #include <sys/wait.h>
 
+#define TAM_CONT 100
+#define pid_length 4
+
 void sig_handler(int sig_kill);
 
 int arraypid[6];
@@ -36,13 +39,51 @@ int main()
 		
 	}
 
-	wait(NULL);
+	//wait(NULL);
 	while(1)
 	{
-		wait(NULL);
+		int killed_term = wait(NULL);
+        int killed_start=0;
+
+        f_sh=fopen("PIDs_GETTY","r");
+		char contenido[TAM_CONT];
+		char array[pid_length];
+		int longitud;
+		longitud=fread(contenido,1,TAM_CONT,f_sh);
+        fclose(f_sh);
+
+        for(int i=0;i<6;i++)
+	   { 
+         for(int idx=0;idx<pid_length;idx++)
+		 {
+			 array[idx]=contenido[(i*pid_length)+idx];
+		 }
+		 int pid_kill=atoi(array);
+		 	if(pid_kill==killed_term){
+		 		killed_start = i * pid_length;
+		 		break;
+		 	}
+		 	
+	   }
+
 		pid=fork();
+
 		if(pid==0)
 			execlp("xterm","xterm","-e","./getty",NULL);
+		else{
+			char k[pid_length];
+    		sprintf(k, "%i", pid);
+
+    		for(int adx=0; adx<pid_length; adx++){
+    			contenido[adx+killed_start] = k[adx];
+    		}
+			
+			f_sh=fopen("PIDs_GETTY","w");
+
+			fprintf(f_sh,"%s", contenido);
+			fclose(f_sh);
+
+		}
 	} //falta eliminar el proceso si se ejecuta "shutdown" cuando se abra una nueva terminal
 	
 	printf("Fin");
