@@ -79,18 +79,18 @@ int main()
     		}
 			
 
-			int ppid_kill=atoi(array_ppid);
+			
 			// LAMMAR A FUNCION DE BORRADO
     		f_sh=fopen("PIDs_GETTY","a");
     		char e[pid_length];
-    		
+
     		for(int bdx=0; bdx<6; bdx++){
     			for(int adx=0; adx<pid_length; adx++){
     				e[adx] = contenido[(bdx*pid_length)+adx];	
     			}
 
     			int ppid_new=atoi(e);
-    			fprintf(f_sh,"%d", e);
+    			fprintf(f_sh,"%d", ppid_new);
 
     		}
 
