@@ -97,8 +97,13 @@ int main()
 			f_sh=fopen("PIDs_GETTY","a");
 
 			for(int i=0; i<6; i++){
-				if(pid_kill[i] == killed_term)
+				printf("\nAAA NEW PID: %d AAA\n", pid);
+				printf("\nAAA PID DEAD: %d AAA\n", killed_term);
+				printf("\nAAA PID SUPPOSED: %d AAA\n", pid_kill[i]);
+				if(pid_kill[i] == killed_term){
 					fprintf(f_sh,"%d", pid);
+					printf("\nAAA Se metió: %d AAA\n", pid);
+				}
 				else
 					fprintf(f_sh,"%d", pid_kill[i]);
 			}
