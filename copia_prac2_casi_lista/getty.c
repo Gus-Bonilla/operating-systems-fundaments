@@ -26,7 +26,7 @@ int main()
     fclose(pass);
 
     f_sh=fopen("PIDs_GETTY","a");
-    fprintf(f_sh,"%d",getpid());
+    fprintf(f_sh,"%d",getppid());
     fclose(f_sh);
     
     printf("Bienvenido\n");
