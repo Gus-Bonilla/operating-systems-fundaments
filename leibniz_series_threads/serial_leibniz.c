@@ -10,17 +10,15 @@ int main(int argc, char *args[]){
 	unsigned long int iterations;
 	long double leibinz_result = 0;
 	
-	unsigned long long start_tu;
+	unsigned long long start_tu;	// Variables de toma de tiempo us & s
 	unsigned long long stop_tu;
-	unsigned long long elapsed_time_u;
 	unsigned long long start_ts;
 	unsigned long long stop_ts;
-	long long elapsed_time_s;
 	struct timeval ts;
+	float elapsed_time;
 
 	if(argc < 2)
 		iterations = 2000000000;
-		//iterations = 100;
 	else
 		iterations = atoi(args[1]);
 
@@ -30,7 +28,7 @@ int main(int argc, char *args[]){
 	start_tu = ts.tv_usec; // Tiempo inicial
 	start_ts = ts.tv_sec; // Tiempo inicial
 
-	for(int idx=0; idx<iterations; idx++){
+	for(int idx=0; idx<iterations; idx++){	// Nuestro algoritmo se basa en que si es positivo se suman al resultado que tenemos y si es negativo o impar las iteranciones se restan
 		if(idx%2==0 || idx==0)
 			leibinz_result += calc_leibinz(idx);
 		else
@@ -40,16 +38,13 @@ int main(int argc, char *args[]){
 	gettimeofday(&ts, NULL);
 	stop_tu = ts.tv_usec; // Tiempo final
 	stop_ts = ts.tv_sec; // Tiempo final
-	elapsed_time_s = stop_ts - start_ts;
-	elapsed_time_u = stop_tu - start_tu;
-
-	
 
 	printf("\nEl resultado de la serie de Leibinz fue de: %.20LF\n\n", leibinz_result);
 	printf("\nPi calculado con la serie de Leibinz es de: %.20LF\n\n", leibinz_result*4);
 	printf("------------------------------\n");
-	printf("TIEMPO TOTAL, %lld micro segundos\n",elapsed_time_u);
-	printf("TIEMPO TOTAL, %lld segundos\n",elapsed_time_s);
+	printf("TIEMPO TOTAL: %lld microsegundos\n",((stop_ts-start_ts)*1000000L+stop_tu) - start_tu);
+	printf("TIEMPO TOTAL: %lf milisegundos\n", (float)(((stop_ts-start_ts)*1000000L+stop_tu) - start_tu)/1000.0);
+	printf("TIEMPO TOTAL: %lf segundos\n", (float)(((stop_ts-start_ts)*1000000L+stop_tu) - start_tu)/1000000.0);
 
 	return 0;
 }
